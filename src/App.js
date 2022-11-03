@@ -5,9 +5,12 @@ import { nanoid } from 'nanoid';
 import Confetti from 'react-confetti';
 
 export default function App() {
+  /* Setting States */
   const [diceArray, setDiceArray] = useState(allNewDice());
   const [tenzies, setTenzies] = useState(false);
+  const [devCommentary, setDevCommentary] = useState(false);
 
+  /* Setting Effect */
   useEffect(() => {
     if (checkIfWon()) {
       setTenzies(true);
@@ -62,6 +65,9 @@ export default function App() {
       setDiceArray(allNewDice());
     }
   }
+  function toggleDevCommentary() {
+    setDevCommentary(!devCommentary);
+  }
 
   /**
    * Toggles the held state of a die component
@@ -113,6 +119,18 @@ export default function App() {
       <button className="button-reroll" onClick={rollDice}>
         {tenzies ? 'New Game' : 'Roll'}
       </button>
+      <div className="form-check form-switch" id="dev-mode-toggle">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckDefault"
+          onChange={toggleDevCommentary}
+        />
+        <label className="form-check-label" for="flexSwitchCheckDefault">
+          Dev Commentary {devCommentary ? 'on' : 'off'}
+        </label>
+      </div>
     </main>
   );
 }
